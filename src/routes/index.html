@@ -5,5 +5,45 @@
 <h1>Who Is Hiring?</h1>
 
 <script context="module">
+	import post from './_data/data.js'
 	export async function preload({ params, query }) { return }
+	if (process.browser) { (async function() {
+
+		// const res = await fetch('https://hacker-news.firebaseio.com/v0/item/18807017.json')
+		// const json = await res.json()
+		// console.log(json)
+
+
+		// const length = post.kids.length
+		// for (let index = 0; index < length; index++) {
+		// 	// if (index > 5 && index < 3000) {
+		// 		const id = post.kids[index].toString()
+
+		// 		console.group(index, id)
+
+		// 		// const resp = await fetch(`//hacker-news.firebaseio.com/v0/item/${id}.json`)
+		// 		// const json = await resp.json()
+		// 		// console.log(json)
+		// 		// const dbResp = await db.put(Object.assign({ _id: id }, json))
+		// 		// console.log(dbResp)
+
+		// 		const doc = await db.get(id)
+		// 		console.log(doc._id, doc._rev)
+
+		// 		console.groupEnd()
+		// 	// }
+		// }
+
+
+		const db = new PouchDB('who-is-hiring')
+		const remoteCouch = false
+		// console.log(post)
+
+		const docs = await db.allDocs({
+			include_docs: true,
+			keys: post.kids.map(id => id.toString()),
+		})
+		console.log(docs)
+
+	})() }
 </script>
