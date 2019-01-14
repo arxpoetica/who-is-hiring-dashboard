@@ -1,6 +1,6 @@
 {
-  "name": "TODO",
-  "description": "TODO",
+  "name": "who-is-hiring",
+  "description": "Interface based on Ask HN: Who is hiring?",
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev",

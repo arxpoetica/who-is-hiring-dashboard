@@ -1,56 +1,45 @@
 <nav>
 	<ul>
-		<li><a class='{segment === undefined ? "selected" : ""}' href='.'>home</a></li>
-		<li><a class='{segment === "about" ? "selected" : ""}' href='about'>about</a></li>
+		<li class="{segment === undefined ? 'selected' : ''}"><a href=".">home</a></li>
+		<!-- <li><a class='{segment === "about" ? "selected" : ""}' href='about'>about</a></li> -->
 
 		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
 		     the blog data when we hover over the link or tap it on a touchscreen -->
-		<li><a rel=prefetch class='{segment === "blog" ? "selected" : ""}' href='blog'>blog</a></li>
+		<!-- <li><a rel=prefetch class='{segment === "blog" ? "selected" : ""}' href='blog'>blog</a></li> -->
 	</ul>
 </nav>
 
 <style>
 	nav {
-		border-bottom: 1px solid rgba(170,30,30,0.1);
-		font-weight: 300;
-		padding: 0 1em;
+		border-bottom: 1px solid #f0f4f5;
+		padding: 0 3rem;
+		margin: 0 0 5rem;
+		background-color: rgba(255, 158, 11, 0.1);
 	}
-
 	ul {
+		display: flex;
 		margin: 0;
 		padding: 0;
+		list-style: none;
 	}
-
-	/* clearfix */
-	ul::after {
-		content: '';
-		display: block;
-		clear: both;
-	}
-
 	li {
-		display: block;
-		float: left;
 	}
-
 	.selected {
 		position: relative;
-		display: inline-block;
 	}
-
 	.selected::after {
 		position: absolute;
 		content: '';
-		width: calc(100% - 1em);
-		height: 2px;
-		background-color: rgb(170,30,30);
+		width: 100%;
+		height: 3px;
+		background-color: rgb(255, 158, 11);
 		display: block;
 		bottom: -1px;
 	}
-
 	a {
 		text-decoration: none;
-		padding: 1em 0.5em;
+		padding: 1rem 3rem;
 		display: block;
+		text-align: center;
 	}
 </style>
