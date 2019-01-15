@@ -4,27 +4,51 @@
 
 <h1>Who Is Hiring?</h1>
 
+<div class="filters">
+	<div class="filters-set">
+		{#each filterSet as filter}
+			<label class="{filter.on ? 'on': ''}">
+				{filter.label}
+				<input type="checkbox" bind:checked={filter.on}/>
+			</label>
+		{/each}
+	</div>
+	{#if filteredComments.length}
+		<div class="selected">Filtered count: {filteredComments.length}</div>
+	{/if}
+</div>
 
-{#if docs}
-	{#each docs.rows as comment, index}
-		{#if index < 10}
-			<div class="doc">
-				<p>
-					{comment.id} : {index} :
-					{comment.doc.type} :
-					{@html comment.doc.text}
-				</p>
-			</div>
-		{/if}
-	{/each}
-{/if}
+<!-- {console.log(filters)} -->
+<!-- {} -->
+
+{#each filteredComments as comment, index}
+	<div class="block">
+		<!-- <p>id: {comment.id}</p> -->
+		<h2><a href="https://news.ycombinator.com/user?id={comment.by}" target="_blank">{comment.by}</a></h2>
+		<!-- <p>time: {comment.time}</p> -->
+		{@html comment.text}
+	</div>
+{/each}
 
 <script context="module">export async function preload({ params, query }) { return }</script>
 <script>
 	import post from './_data/data.js'
 	import { onMount } from 'svelte'
 
-	let docs
+	let filterSet = [
+		{ value: 'remote', label: 'Remote', on: false },
+		{ value: 'remote only', label: 'Remote Only', on: false },
+	]
+
+	let comments = []
+	let filters, filteredComments
+	$: {
+		filters = filterSet.filter(set => set.on).map(set => set.value)
+		filteredComments = filters.length ? comments.filter(comment => {
+			const text = typeof comment.text === 'string' ? comment.text.replace(/\s\s+/g, ' ').toLowerCase() : ''
+			return filters.filter(filter => text.indexOf(filter) > -1).length
+		}) : comments
+	}
 
 	onMount(async() => {
 		if (process.browser) {
@@ -56,14 +80,45 @@
 			const db = new PouchDB('who-is-hiring')
 			const remoteCouch = false
 
-			docs = await db.allDocs({
+			const docs = await db.allDocs({
 				include_docs: true,
 				keys: post.kids.map(id => id.toString()),
 			})
-			// export 
-			console.log(docs)
-
+			comments = docs.rows.filter(row => !row.error).map(row => row.doc).sort((rowA, rowB) => rowA.time - rowB.time)
+			// console.log(comments)
 		}
 	})
 
 </script>
+
+<style>
+	.block {
+		border: 1px solid #f0f4f5;
+		padding: 2.6rem;
+		margin: 0 0 2.6rem;
+		background-color: rgba(255, 158, 11, 0.05);
+	}
+	.filters {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border: 1px solid #f0f4f5;
+		margin: 0 0 2.6rem;
+		padding: 1rem;
+	}
+	.filters-set {
+		display: flex;
+	}
+	label {
+		margin: 0 1rem 0 0;
+		padding: 0.4rem 1.2rem;
+		border: 1px solid rgba(255, 158, 11, 0.2);
+		cursor: pointer;
+	}
+	label.on {
+		background-color: rgba(255, 158, 11, 0.05);
+	}
+	.selected {
+		margin-right: 1rem;
+	}
+</style>

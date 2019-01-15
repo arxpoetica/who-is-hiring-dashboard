@@ -2729,10 +2729,10 @@ supports-color@^5.3.0:
   dependencies:
     has-flag "^3.0.0"
 
-svelte@3.0.0-alpha17:
-  version "3.0.0-alpha17"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.0.0-alpha17.tgz#ab1e157c1eaa74c3ecb079798e978b9d688cebb8"
-  integrity sha512-O/H+FKD2JkQh5elEQnaBkRwZH/TyNwCbfj4OijJsogd6pnM5Mn1AQDLaisrioGGilsXvHp5VISvyvrJedWMfEA==
+svelte@3.0.0-alpha16:
+  version "3.0.0-alpha16"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.0.0-alpha16.tgz#67b3f42ae45e225d10e39ceca3cb3f4a91c25a62"
+  integrity sha512-jU9a/4SOLIuLOYLExG4ySugyhThp7aIUNJ4iZdoRsJmMgpm+DBDVLFEKzFQ5YjSU9spdnTOJwdBNpM/GNskqnQ==
 
 tar@^4:
   version "4.4.8"
