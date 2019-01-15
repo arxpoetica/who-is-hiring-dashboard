@@ -4,46 +4,66 @@
 
 <h1>Who Is Hiring?</h1>
 
-<script context="module">
+
+{#if docs}
+	{#each docs.rows as comment, index}
+		{#if index < 10}
+			<div class="doc">
+				<p>
+					{comment.id} : {index} :
+					{comment.doc.type} :
+					{@html comment.doc.text}
+				</p>
+			</div>
+		{/if}
+	{/each}
+{/if}
+
+<script context="module">export async function preload({ params, query }) { return }</script>
+<script>
 	import post from './_data/data.js'
-	export async function preload({ params, query }) { return }
-	if (process.browser) { (async function() {
+	import { onMount } from 'svelte'
 
-		// const res = await fetch('https://hacker-news.firebaseio.com/v0/item/18807017.json')
-		// const json = await res.json()
-		// console.log(json)
+	let docs
 
+	onMount(async() => {
+		if (process.browser) {
 
-		// const length = post.kids.length
-		// for (let index = 0; index < length; index++) {
-		// 	// if (index > 5 && index < 3000) {
-		// 		const id = post.kids[index].toString()
+			// const res = await fetch('https://hacker-news.firebaseio.com/v0/item/18807017.json')
+			// const json = await res.json()
+			// console.log(json)
 
-		// 		console.group(index, id)
+			// const length = post.kids.length
+			// for (let index = 0; index < length; index++) {
+			// 	// if (index > 5 && index < 3000) {
+			// 		const id = post.kids[index].toString()
 
-		// 		// const resp = await fetch(`//hacker-news.firebaseio.com/v0/item/${id}.json`)
-		// 		// const json = await resp.json()
-		// 		// console.log(json)
-		// 		// const dbResp = await db.put(Object.assign({ _id: id }, json))
-		// 		// console.log(dbResp)
+			// 		console.group(index, id)
 
-		// 		const doc = await db.get(id)
-		// 		console.log(doc._id, doc._rev)
+			// 		// const resp = await fetch(`//hacker-news.firebaseio.com/v0/item/${id}.json`)
+			// 		// const json = await resp.json()
+			// 		// console.log(json)
+			// 		// const dbResp = await db.put(Object.assign({ _id: id }, json))
+			// 		// console.log(dbResp)
 
-		// 		console.groupEnd()
-		// 	// }
-		// }
+			// 		const doc = await db.get(id)
+			// 		console.log(doc._id, doc._rev)
 
+			// 		console.groupEnd()
+			// 	// }
+			// }
 
-		const db = new PouchDB('who-is-hiring')
-		const remoteCouch = false
-		// console.log(post)
+			const db = new PouchDB('who-is-hiring')
+			const remoteCouch = false
 
-		const docs = await db.allDocs({
-			include_docs: true,
-			keys: post.kids.map(id => id.toString()),
-		})
-		console.log(docs)
+			docs = await db.allDocs({
+				include_docs: true,
+				keys: post.kids.map(id => id.toString()),
+			})
+			// export 
+			console.log(docs)
 
-	})() }
+		}
+	})
+
 </script>
