@@ -6,11 +6,18 @@
 
 <div class="filters">
 	<div class="filters-set">
-		{#each filterSet as filter}
-			<label class="{filter.on ? 'on': ''}">
-				{filter.label}
-				<input type="checkbox" bind:checked={filter.on}/>
-			</label>
+		{#each filterSet as filter, index}
+			{#if index < filterSet.length - 1}
+				<label class="{filter.on ? 'on': ''}">
+					{filter.label}
+					<input type="checkbox" bind:checked={filter.on}/>
+				</label>
+			{:else}
+				<label class="{filter.value ? 'on': ''}">
+					{filter.label}
+					<input type="text" bind:value={filter.value}/>
+				</label>
+			{/if}
 		{/each}
 	</div>
 	{#if filteredComments.length}
@@ -18,8 +25,10 @@
 	{/if}
 </div>
 
-<!-- {console.log(filters)} -->
-<!-- {} -->
+	{console.log(filters, filters.length)}
+	{#each filterSet as filter, index}
+		<p>Value: {filter.value} | Label: {filter.label}</p>
+	{/each}
 
 {#each filteredComments as comment, index}
 	<div class="block">
@@ -38,15 +47,16 @@
 	let filterSet = [
 		{ value: 'remote', label: 'Remote', on: false },
 		{ value: 'remote only', label: 'Remote Only', on: false },
+		{ value: '', label: 'Search', on: true },
 	]
 
 	let comments = []
 	let filters, filteredComments
 	$: {
 		filters = filterSet.filter(set => set.on).map(set => set.value)
-		filteredComments = filters.length ? comments.filter(comment => {
+		filteredComments = filters.length > 1 || !!filters[filters.length - 1] ? comments.filter(comment => {
 			const text = typeof comment.text === 'string' ? comment.text.replace(/\s\s+/g, ' ').toLowerCase() : ''
-			return filters.filter(filter => text.indexOf(filter) > -1).length
+			return filters.filter(filter => filter ? text.indexOf(filter) > -1 : false).length
 		}) : comments
 	}
 
