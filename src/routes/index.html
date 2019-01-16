@@ -33,6 +33,7 @@
 		<h2><a href="https://news.ycombinator.com/user?id={comment.by}" target="_blank">{comment.by}</a></h2>
 		<!-- <p>time: {comment.time}</p> -->
 		{@html comment.text}
+		<!-- {comment.text} -->
 	</div>
 {/each}
 
@@ -53,16 +54,15 @@
 	let comments = []
 	let filters, filteredComments
 	$: {
-		filters = filterSet.filter(set => set.on).map(set => set.value)
-		filteredComments = filters.length > 1 || !!filters[filters.length - 1] ? comments.filter(comment => {
-			const text = typeof comment.text === 'string' ? comment.text.replace(/\s\s+/g, ' ').toLowerCase() : ''
-			return filters.filter(filter => filter ? text.indexOf(filter) > -1 : false).length
+		filters = filterSet.filter(set => set.on && set.value !== '').map(set => set.value)
+		filteredComments = filters.length ? comments.filter(comment => {
+			return filters.filter(filter => filter ? comment.searchText.indexOf(filter) > -1 : false).length
 		}) : comments
 	}
 
 	onMount(async() => {
 		if (process.browser) {
-
+			// ?id=18807017
 			// const res = await fetch('https://hacker-news.firebaseio.com/v0/item/18807017.json')
 			// const json = await res.json()
 			// console.log(json)
@@ -87,15 +87,28 @@
 			// 	// }
 			// }
 
+			// const time0 = performance.now()
+			// const time1 = performance.now()
+			// console.log(`Call to doSomething took ${time1 - time0} milliseconds.`)
+
+
 			const db = new PouchDB('who-is-hiring')
 			const remoteCouch = false
+
 
 			const docs = await db.allDocs({
 				include_docs: true,
 				keys: post.kids.map(id => id.toString()),
 			})
-			comments = docs.rows.filter(row => !row.error).map(row => row.doc).sort((rowA, rowB) => rowA.time - rowB.time)
+			comments = docs.rows
+				.filter(row => !row.error)
+				.map(row => {
+					row.doc.searchText = typeof row.doc.text === 'string' ? row.doc.text.replace(/\s\s+/g, ' ').toLowerCase() : ''
+					return row.doc
+				})
+				.sort((rowA, rowB) => rowA.time - rowB.time)
 			// console.log(comments)
+
 		}
 	})
 
