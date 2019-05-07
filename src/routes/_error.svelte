@@ -10,6 +10,12 @@
 	<pre>{error.stack}</pre>
 {/if}
 
+<script>
+	export let status
+	export let error
+	const dev = process.env.NODE_ENV === 'development'
+</script>
+
 <style>
 	h1, p {
 		margin: 0 auto;
@@ -31,8 +37,3 @@
 		}
 	}
 </style>
-
-<script>
-	const dev = process.env.NODE_ENV === 'development';
-	export let error, status;
-</script>

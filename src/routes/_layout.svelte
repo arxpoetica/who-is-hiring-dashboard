@@ -1,12 +1,11 @@
 <main>
-	<Nav segment={child.segment}/>
-	<svelte:component this={child.component} {...child.props}/>
+	<Nav {segment}/>
+	<slot></slot>
 </main>
 
 <script>
-	import Nav from '../components/Nav.html'
-	export let child
-	export let path
+	import Nav from '../components/Nav.svelte'
+	export let segment
 </script>
 
 <style>

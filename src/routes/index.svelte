@@ -37,7 +37,6 @@
 	</div>
 {/each}
 
-<script context="module">export async function preload({ params, query }) { return }</script>
 <script>
 	import post from './_data/data.js'
 	import { onMount } from 'svelte'

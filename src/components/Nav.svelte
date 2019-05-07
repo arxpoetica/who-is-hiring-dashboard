@@ -1,6 +1,6 @@
 <nav>
 	<ul>
-		<li class="{segment === undefined ? 'selected' : ''}"><a href=".">home</a></li>
+		<li><a class='{segment === undefined ? "selected" : ""}' href='.'>home</a></li>
 		<!-- <li><a class='{segment === "about" ? "selected" : ""}' href='about'>about</a></li> -->
 
 		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
@@ -8,6 +8,10 @@
 		<!-- <li><a rel=prefetch class='{segment === "blog" ? "selected" : ""}' href='blog'>blog</a></li> -->
 	</ul>
 </nav>
+
+<script>
+	export let segment
+</script>
 
 <style>
 	nav {
@@ -21,8 +25,6 @@
 		margin: 0;
 		padding: 0;
 		list-style: none;
-	}
-	li {
 	}
 	.selected {
 		position: relative;
