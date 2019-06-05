@@ -10,9 +10,11 @@
     "start": "node __sapper__/build",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "test": "run-p --race dev cy:run"
+    "test": "run-p --race dev cy:run",
+    "watch": "trim watch --postcss"
   },
   "dependencies": {
+    "ansi-colors": "3.2.4",
     "compression": "^1.7.1",
     "dexie": "2.0.4",
     "polka": "0.5.2",
@@ -24,6 +26,11 @@
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "7.4.5",
     "@babel/runtime": "7.4.5",
+    "@sapper-dragon/postcss": "0.0.8",
+    "@sapper-dragon/trimmings": "0.0.8",
+    "dotenv-expand": "5.1.0",
+    "dotenv-extended": "2.4.0",
+    "dotenv-parse-variables": "0.2.0",
     "npm-run-all": "^4.1.5",
     "rollup": "1.14.2",
     "rollup-plugin-babel": "^4.0.2",
