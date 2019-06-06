@@ -3,58 +3,53 @@
 </svelte:head>
 
 <h1>{title}</h1>
-<!-- {JSON.stringify(listing)} -->
-
-<Filters/>
-{#if listing}
-	<!-- {#each filteredComments as comment, index} -->
-	{#each listing.children as post, index}
-		<Card {post} {index}/>
-	{/each}
-{/if}
+<Filters {posts} {filteredPosts}/>
+{#each filteredPosts as post, index}
+	<Card {post} {index}/>
+{/each}
 
 <script>
-	let listing
-	$: title = listing ? listing.title : 'Loading...'
-
 	import { stores } from '@sapper/app'
 	import { onMount } from 'svelte'
 	import { fetchHN } from '../../server/loaders'
+	import { query, filterSet, tags } from '../../stores/listing-store'
 	import Filters from '../_components/Filters.svelte'
 	import Card from '../_components/Card.svelte'
+
+	let listing
+
+	$: title = listing ? listing.title : 'Loading...'
+	$: posts = listing ? listing.children.map(post => {
+		// just indexing and optimizing for faster search / filter
+		const doc = new DOMParser().parseFromString(post.text, 'text/html')
+		post.searchText = doc.body.textContent.replace(/\s\s+/g, ' ').toLowerCase()
+		post.tags = tags.filter(tag => post.searchText.indexOf(tag) > -1)
+		return post
+	}) : []
+
+	$: filters = $filterSet.filter(set => set.on).map(set => set.value)
+
+	$: queryPosts = $query.length > 2
+		? posts.filter(post => post.searchText.indexOf($query) > -1)
+		: posts
+
+	$: filteredPosts = filters.length
+		? queryPosts.filter(post => {
+			const found = filters.filter(filter => post.tags.indexOf(filter) > -1)
+			return found.length === filters.length
+		})
+		: queryPosts
 
 	const { page } = stores()
 	onMount(async () => {
 		const res = await fetchHN(`items/${$page.params.id}`)
 		listing = await res.json()
-		console.log(listing)
-
-
-		// const docs = await db.allDocs({
-		// 	include_docs: true,
-		// 	keys: post.kids.map(id => id.toString()),
-		// })
-		// comments = docs.rows
-		// 	.filter(row => !row.error)
-		// 	.map(row => {
-		// 		row.doc.searchText = typeof row.doc.text === 'string' ? row.doc.text.replace(/\s\s+/g, ' ').toLowerCase() : ''
-		// 		return row.doc
-		// 	})
-		// 	.sort((rowA, rowB) => rowA.time - rowB.time)
-		// // console.log(comments)
-
-
+		// console.log(listing)
 	})
-
-	// let comments = []
-	// let filters, filteredComments
-	// $: {
-	// 	filters = filterSet.filter(set => set.on && set.value !== '').map(set => set.value)
-	// 	filteredComments = filters.length ? comments.filter(comment => {
-	// 		return filters.filter(filter => filter ? comment.searchText.indexOf(filter) > -1 : false).length
-	// 	}) : comments
-	// }
-
 </script>
 
-<!-- <style type="text/scss"></style> -->
+<style type="text/scss">
+	h1 {
+		margin: 1.2rem;
+	}
+</style>
