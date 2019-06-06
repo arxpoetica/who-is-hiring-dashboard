@@ -3,7 +3,8 @@
 <div class="posts">
 	{#each posts as post}
 		<div class="post">
-			<h2><a href="https://news.ycombinator.com/item?id={post.objectID}">{post.title}</a></h2>
+			<!-- <h2><a href="https://news.ycombinator.com/item?id={post.objectID}">{post.title}</a></h2> -->
+			<h2><a href="/listing/{post.objectID}">{post.title}</a></h2>
 		</div>
 	{/each}
 </div>
@@ -14,6 +15,7 @@
 			headers: { 'Content-Type': 'application/json' }
 		})
 		const data = await res.json()
+		console.log(data)
 		return { posts: data.hits }
 	}
 </script>
