@@ -13,7 +13,7 @@
 	</div>
 	<div class="meta">
 		<div class="stat">Total: {posts.length}</div>
-		{#if filteredPosts.length}
+		{#if filteredPosts.length < posts.length}
 			<div class="stat">Filtered: {filteredPosts.length}</div>
 		{/if}
 	</div>
@@ -43,6 +43,7 @@
 		padding: 0.4rem 1.2rem;
 		border: 1px solid rgba(255, 158, 11, 0.2);
 		cursor: pointer;
+		user-select: none;
 		&.on {
 			background-color: $orange-mid;
 		}

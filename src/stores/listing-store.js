@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store'
+import { storable } from './local-store'
 
 export const query = writable('')
 
@@ -17,3 +18,6 @@ export const tags = [
 	'interns',
 	'visa',
 ]
+
+export const hide = storable('hide', [])
+export const apply = storable('apply', [])

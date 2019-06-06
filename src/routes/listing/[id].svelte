@@ -12,7 +12,7 @@
 	import { stores } from '@sapper/app'
 	import { onMount } from 'svelte'
 	import { fetchHN } from '../../server/loaders'
-	import { query, filterSet, tags } from '../../stores/listing-store'
+	import { query, filterSet, tags, hide, apply } from '../../stores/listing-store'
 	import Filters from '../_components/Filters.svelte'
 	import Card from '../_components/Card.svelte'
 
@@ -24,6 +24,8 @@
 		const doc = new DOMParser().parseFromString(post.text, 'text/html')
 		post.searchText = doc.body.textContent.replace(/\s\s+/g, ' ').toLowerCase()
 		post.tags = tags.filter(tag => post.searchText.indexOf(tag) > -1)
+		post.hide = $hide.indexOf(post.id) > -1
+		post.apply = $apply.indexOf(post.id) > -1
 		return post
 	}) : []
 
@@ -44,7 +46,7 @@
 	onMount(async () => {
 		const res = await fetchHN(`items/${$page.params.id}`)
 		listing = await res.json()
-		// console.log(listing)
+		console.log(listing)
 	})
 </script>
 
