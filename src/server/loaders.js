@@ -1,21 +1,35 @@
 import fetch from 'cross-fetch'
 
-export const GET = async function(url) {
-	const res = await fetch(url, {
-		method: 'GET',
-		headers: { 'Content-Type': 'application/json' },
-		credentials: 'same-origin',
-	})
-	try { return await res.json() } catch (error) { return undefined }
+export const fetchHN = async(path) => {
+	return await fetch(process.env.DASHBOARD_HN_API + path)
 }
 
-export const POST = async function(url, body) {
-	body = body || {}
-	const res = await fetch(url, {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		credentials: 'same-origin',
-		body: JSON.stringify(body),
-	})
-	try { return await res.json() } catch (error) { return undefined }
+export const GET = async(url) => {
+	try {
+		const res = await fetch(url, {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' },
+			credentials: 'same-origin',
+		})
+		const data = await res.json()
+		return data
+	} catch (error) {
+		console.log(error)
+		return undefined
+	}
+}
+export const POST = async(url, body) => {
+	try {
+		const res = await fetch(url, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			credentials: 'same-origin',
+			body: JSON.stringify(body || {}),
+		})
+		const data = await res.json()
+		return data
+	} catch (error) {
+		console.log(error)
+		return undefined
+	}
 }

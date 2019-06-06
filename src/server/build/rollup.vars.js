@@ -1,7 +1,7 @@
 import { varsOnly } from './config'
 const rollupVars = {}
 for (let key in varsOnly) {
-	if (key.match(/^HN_/)) {
+	if (key.match(/^DASHBOARD_/)) {
 		rollupVars[`process.env.${key}`] = JSON.stringify(varsOnly[key])
 	}
 }

@@ -1,5 +1,7 @@
 <h1>Who is Hiring Dashboard</h1>
 
+<!-- {JSON.stringify(posts)} -->
+
 <div class="posts">
 	{#each posts as post}
 		<div class="post">
@@ -9,16 +11,15 @@
 	{/each}
 </div>
 
-<script context="module">
-	import { GET } from '../server/loaders'
-	export async function preload() {
-		const data = await GET('//hn.algolia.com/api/v1/search_by_date?tags=author_whoishiring')
-		return { posts: data.hits }
-	}
-</script>
-
 <script>
 	export let posts = []
+	import { onMount } from 'svelte'
+	import { fetchHN } from '../server/loaders'
+
+	onMount(async () => {
+		const res = await fetchHN('search_by_date?tags=author_whoishiring')
+		posts = (await res.json()).hits
+	})
 </script>
 
 <style type="text/scss">

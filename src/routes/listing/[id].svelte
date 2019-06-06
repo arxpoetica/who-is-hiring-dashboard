@@ -4,7 +4,9 @@
 
 <h1>Who Is Hiring?</h1>
 
-<!-- <div class="filters">
+<!-- {JSON.stringify(listing)} -->
+
+<div class="filters">
 	<div class="filters-set">
 		{#each filterSet as filter, index}
 			{#if index === 0}
@@ -21,31 +23,60 @@
 		{/each}
 	</div>
 	<div class="meta">
-		{#if filteredComments.length}
+		<!-- {#if filteredComments.length}
 			<div class="selected">Filtered count: {filteredComments.length}</div>
-		{/if}
+		{/if} -->
 	</div>
 </div>
 
-{#each filteredComments as comment, index}
-	<div class="block">
-		<h2><a href="https://news.ycombinator.com/user?id={comment.by}" target="_blank">{comment.by}</a></h2>
-		{@html comment.text}
-	</div>
-{/each} -->
+{#if listing}
+	<!-- {#each filteredComments as comment, index} -->
+	{#each listing.children as post, index}
+		<div class="block">
+			<!-- <h2><a href="https://news.ycombinator.com/user?id={post.by}" target="_blank">{post.by}</a></h2> -->
+			{@html post.text}
+		</div>
+	{/each}
+{/if}
 
 <script>
-	// import post from './_data/data.js'
-	// import { onMount } from 'svelte'
+	let listing
 
-	// let filterSet = [
-	// 	{ value: '', label: 'Search', on: true },
-	// 	{ value: 'remote', label: 'Remote', on: false },
-	// 	{ value: 'remote only', label: 'Remote Only', on: false },
-	// 	{ value: 'onsite', label: 'Onsite', on: false },
-	// 	{ value: 'interns', label: 'Interns', on: false },
-	// 	{ value: 'visa', label: 'Visa', on: false },
-	// ]
+	import { stores } from '@sapper/app'
+	import { onMount } from 'svelte'
+	import { fetchHN } from '../../server/loaders'
+
+	let filterSet = [
+		{ value: '', label: 'Search', on: true },
+		{ value: 'remote', label: 'Remote', on: false },
+		{ value: 'remote only', label: 'Remote Only', on: false },
+		{ value: 'onsite', label: 'Onsite', on: false },
+		{ value: 'interns', label: 'Interns', on: false },
+		{ value: 'visa', label: 'Visa', on: false },
+	]
+
+	const { page } = stores()
+	onMount(async () => {
+		const res = await fetchHN(`items/${$page.params.id}`)
+		listing = await res.json()
+		console.log(listing)
+
+
+		// const docs = await db.allDocs({
+		// 	include_docs: true,
+		// 	keys: post.kids.map(id => id.toString()),
+		// })
+		// comments = docs.rows
+		// 	.filter(row => !row.error)
+		// 	.map(row => {
+		// 		row.doc.searchText = typeof row.doc.text === 'string' ? row.doc.text.replace(/\s\s+/g, ' ').toLowerCase() : ''
+		// 		return row.doc
+		// 	})
+		// 	.sort((rowA, rowB) => rowA.time - rowB.time)
+		// // console.log(comments)
+
+
+	})
 
 	// let comments = []
 	// let filters, filteredComments
@@ -56,62 +87,10 @@
 	// 	}) : comments
 	// }
 
-	// onMount(async() => {
-	// 	if (process.browser) {
-	// 		// ?id=18807017
-	// 		// const res = await fetch('https://hacker-news.firebaseio.com/v0/item/18807017.json')
-	// 		// const json = await res.json()
-	// 		// console.log(json)
-
-	// 		// const length = post.kids.length
-	// 		// for (let index = 0; index < length; index++) {
-	// 		// 	// if (index > 5 && index < 3000) {
-	// 		// 		const id = post.kids[index].toString()
-
-	// 		// 		console.group(index, id)
-
-	// 		// 		// const resp = await fetch(`//hacker-news.firebaseio.com/v0/item/${id}.json`)
-	// 		// 		// const json = await resp.json()
-	// 		// 		// console.log(json)
-	// 		// 		// const dbResp = await db.put(Object.assign({ _id: id }, json))
-	// 		// 		// console.log(dbResp)
-
-	// 		// 		const doc = await db.get(id)
-	// 		// 		console.log(doc._id, doc._rev)
-
-	// 		// 		console.groupEnd()
-	// 		// 	// }
-	// 		// }
-
-	// 		// const time0 = performance.now()
-	// 		// const time1 = performance.now()
-	// 		// console.log(`Call to doSomething took ${time1 - time0} milliseconds.`)
-
-
-	// 		const db = new PouchDB('who-is-hiring')
-	// 		const remoteCouch = false
-
-
-	// 		const docs = await db.allDocs({
-	// 			include_docs: true,
-	// 			keys: post.kids.map(id => id.toString()),
-	// 		})
-	// 		comments = docs.rows
-	// 			.filter(row => !row.error)
-	// 			.map(row => {
-	// 				row.doc.searchText = typeof row.doc.text === 'string' ? row.doc.text.replace(/\s\s+/g, ' ').toLowerCase() : ''
-	// 				return row.doc
-	// 			})
-	// 			.sort((rowA, rowB) => rowA.time - rowB.time)
-	// 		// console.log(comments)
-
-	// 	}
-	// })
-
 </script>
 
-<style>
-	/* .block {
+<style type="text/scss">
+	.block {
 		border: 1px solid #f0f4f5;
 		padding: 2.6rem;
 		margin: 0 0 2.6rem;
@@ -160,5 +139,5 @@
 	}
 	.selected {
 		margin-right: 1rem;
-	} */
+	}
 </style>
