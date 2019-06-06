@@ -10,12 +10,9 @@
 </div>
 
 <script context="module">
-	export async function preload({ params }) {
-		const res = await this.fetch('https://hn.algolia.com/api/v1/search_by_date?tags=author_whoishiring', {
-			headers: { 'Content-Type': 'application/json' }
-		})
-		const data = await res.json()
-		console.log(data)
+	import { GET } from '../server/loaders'
+	export async function preload() {
+		const data = await GET('//hn.algolia.com/api/v1/search_by_date?tags=author_whoishiring')
 		return { posts: data.hits }
 	}
 </script>
