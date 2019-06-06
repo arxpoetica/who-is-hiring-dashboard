@@ -17,6 +17,7 @@
     "ansi-colors": "3.2.4",
     "compression": "^1.7.1",
     "cross-fetch": "3.0.3",
+    "dayjs": "1.8.14",
     "dexie": "2.0.4",
     "express": "4.17.1",
     "helmet": "3.18.0",
