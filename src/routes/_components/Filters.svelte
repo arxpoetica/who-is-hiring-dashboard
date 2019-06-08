@@ -1,15 +1,25 @@
 <div class="filters">
-	<div class="filters-set">
+	<div class="all-filters">
 		<label class="search {$query.length > 2 ? 'on': ''}">
 			Search
-			<input type="text" bind:value={$query}/>
+			<input type="text" bind:value={$query} placeholder="for text on the page..."/>
 		</label>
-		{#each $filterSet as filter, index}
-			<label class="{filter.on ? 'on': ''}">
-				{filter.label}
-				<input type="checkbox" bind:checked={$filterSet[index].on}/>
-			</label>
-		{/each}
+		<div class="filters-set">
+			{#each $settings as setting, index}
+				<label class="{setting.on ? 'on': ''}">
+					{setting.label}
+					<input type="checkbox" bind:checked={$settings[index].on}/>
+				</label>
+			{/each}
+		</div>
+		<div class="filters-set">
+			{#each $filterSet as filter, index}
+				<label class="{filter.on ? 'on': ''}">
+					{filter.label}
+					<input type="checkbox" bind:checked={$filterSet[index].on}/>
+				</label>
+			{/each}
+		</div>
 	</div>
 	<div class="meta">
 		<div class="stat">Total: {posts.length}</div>
@@ -22,44 +32,46 @@
 <script>
 	export let posts = []
 	export let filteredPosts = []
-	import { query, filterSet } from '../../stores/listing-store'
+	import { query, filterSet, settings } from '../../stores/listing-store'
 </script>
 
 <style type="text/scss">
 	.filters {
 		margin: 0 0 2.6rem;
 	}
+	.all-filters {
+		border: 1px solid $gray-light;
+		padding: 1rem;
+	}
+	.search {
+		justify-content: flex-start;
+		position: relative;
+		margin: 0;
+		padding: 0 1.2rem;
+	}
+	input[type="text"] {
+		flex: 1;
+		margin: 0.4rem 0 0.4rem 0.6rem;
+		padding: 0 0.6rem;
+		border: 1px solid $gray-light;
+		box-shadow: inset 0 0 4px $gray-light;
+		font: inherit;
+	}
 	.filters-set {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		border: 1px solid #f0f4f5;
-		padding: 1rem;
 	}
 	label {
 		display: flex;
 		align-items: center;
-		margin: 0 1rem 0 0;
+		margin: 1rem 1rem 0 0;
 		padding: 0.4rem 1.2rem;
 		border: 1px solid rgba(255, 158, 11, 0.2);
 		cursor: pointer;
 		user-select: none;
 		&.on {
 			background-color: $orange-mid;
-		}
-		&.search {
-			position: relative;
-			padding-right: 17rem;
-			input[type="text"] {
-				position: absolute;
-				top: -0.1rem;
-				right: -0.1rem;
-				height: 100%;
-				width: 15rem;
-				margin: 0 0 0 0.6rem;
-				padding: 0 0.4rem;
-				border: 1px solid rgba(255, 158, 11, 0.2);
-			}
 		}
 	}
 	input[type="checkbox"] {

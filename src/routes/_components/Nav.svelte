@@ -13,9 +13,9 @@
 	export let segment
 </script>
 
-<style>
+<style type="text/scss">
 	nav {
-		border-bottom: 1px solid #f0f4f5;
+		border-bottom: 1px solid $gray-light;
 		padding: 0 3rem;
 		margin: 0 0 5rem;
 		background-color: rgba(255, 158, 11, 0.1);

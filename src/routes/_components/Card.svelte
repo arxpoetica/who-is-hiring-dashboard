@@ -60,7 +60,7 @@
 		align-items: flex-start;
 		padding: 1.2rem;
 		background-color: white;
-		border: 1px solid #f0f4f5;
+		border: 1px solid $gray-light;
 	}
 	// .meta {}
 	.titles {

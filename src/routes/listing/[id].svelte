@@ -12,7 +12,7 @@
 	import { stores } from '@sapper/app'
 	import { onMount } from 'svelte'
 	import { fetchHN } from '../../server/loaders'
-	import { query, filterSet, tags, hide, apply } from '../../stores/listing-store'
+	import { query, filterSet, settings, tags, hide, apply } from '../../stores/listing-store'
 	import Filters from '../_components/Filters.svelte'
 	import Card from '../_components/Card.svelte'
 
@@ -35,12 +35,18 @@
 		? posts.filter(post => post.searchText.indexOf($query) > -1)
 		: posts
 
+	$: showHidden = $settings.find(setting => setting.value === 'hidden').on
+	$: settingsPosts = queryPosts.filter(post => {
+		let show = showHidden ? true : !post.hide
+		return show
+	})
+
 	$: filteredPosts = filters.length
-		? queryPosts.filter(post => {
+		? settingsPosts.filter(post => {
 			const found = filters.filter(filter => post.tags.indexOf(filter) > -1)
 			return found.length === filters.length
 		})
-		: queryPosts
+		: settingsPosts
 
 	const { page } = stores()
 	onMount(async () => {
