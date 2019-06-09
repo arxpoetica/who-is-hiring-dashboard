@@ -37,6 +37,7 @@
 
 	$: posts = listing ? listing.children.map(post => {
 		// just indexing and optimizing for faster search / filter
+		post.text = typeof post.text === 'string' ? post.text.replace(/\<a /gi, '<a target="_blank" ') : ''
 		const doc = new DOMParser().parseFromString(post.text, 'text/html')
 		post.searchText = doc.body.textContent.replace(/\s\s+/g, ' ').toLowerCase()
 		post.tags = tags.filter(tag => post.searchText.indexOf(tag) > -1)
