@@ -2,17 +2,31 @@
 	<title>Sapper project template</title>
 </svelte:head>
 
-<h1>{title}</h1>
-<Filters {posts} {filteredPosts}/>
-{#each filteredPosts as post, index}
-	<Card {post} {index}/>
-{/each}
+<h1 class:listing>
+	{#if listing}
+		{listing.title}
+	{:else}
+		. . . loading . . .
+		<div class="svgs">
+			<div class="svg"><Loader/></div>
+			<div class="svg"><Loader/></div>
+			<div class="svg"><Loader/></div>
+		</div>
+	{/if}
+</h1>
+{#if listing}
+	<Filters {posts} {filteredPosts}/>
+	{#each filteredPosts as post, index}
+		<Card {post} {index}/>
+	{/each}
+{/if}
 
 <script>
 	import { stores } from '@sapper/app'
 	import { onMount } from 'svelte'
 	import { fetchHN } from '../../server/loaders'
 	import { query, filterSet, languageSet, settings, hide, apply, applied } from '../../stores/listing-store'
+	import Loader from '../_svg/Loader.svelte'
 	import Filters from '../_components/Filters.svelte'
 	import Card from '../_components/Card.svelte'
 
@@ -21,7 +35,6 @@
 	$: tags = $filterSet.map(set => set.value)
 	$: languagesTags = $languageSet.map(set => set.value)
 
-	$: title = listing ? listing.title : 'Loading...'
 	$: posts = listing ? listing.children.map(post => {
 		// just indexing and optimizing for faster search / filter
 		const doc = new DOMParser().parseFromString(post.text, 'text/html')
@@ -80,5 +93,20 @@
 <style type="text/scss">
 	h1 {
 		margin: 1.2rem;
+		text-align: center;
+		&.listing {
+			text-align: left;
+		}
+	}
+	.svgs {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 10rem 0 0;
+	}
+	.svg {
+		min-width: 20rem;
+		margin: 2.5rem;
+		line-height: 0;
 	}
 </style>

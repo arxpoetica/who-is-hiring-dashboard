@@ -22,8 +22,8 @@ export const languageSet = storable('languageSet', [
 ])
 
 export const settings = storable('setting', [
-	{ value: 'apply', label: 'To Apply', on: true },
-	{ value: 'applied', label: 'Applied To', on: true },
+	{ value: 'apply', label: 'To Apply', on: false },
+	{ value: 'applied', label: 'Applied To', on: false },
 	{ value: 'hidden', label: 'Show Hidden', on: false },
 	{ value: 'hiddenonly', label: 'Show Hidden Only', on: false },
 ])
