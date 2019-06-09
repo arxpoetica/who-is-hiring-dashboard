@@ -76,6 +76,7 @@
 	}
 	input[type="checkbox"] {
 		margin: 0.2rem 0 0 0.6rem;
+		cursor: pointer;
 	}
 	.meta {
 		display: flex;

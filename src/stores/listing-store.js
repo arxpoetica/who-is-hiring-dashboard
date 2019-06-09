@@ -12,9 +12,10 @@ export const filterSet = storable('filterSet', [
 ])
 
 export const settings = storable('setting', [
-	{ value: 'apply', label: 'To Apply', on: false },
-	{ value: 'applied', label: 'Applied To', on: false },
+	{ value: 'apply', label: 'To Apply', on: true },
+	{ value: 'applied', label: 'Applied To', on: true },
 	{ value: 'hidden', label: 'Show Hidden', on: false },
+	{ value: 'hiddenonly', label: 'Show Hidden Only', on: false },
 ])
 
 export const tags = [
@@ -27,3 +28,4 @@ export const tags = [
 
 export const hide = storable('hide', [])
 export const apply = storable('apply', [])
+export const applied = storable('applied', [])

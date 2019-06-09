@@ -12,7 +12,7 @@
 	import { stores } from '@sapper/app'
 	import { onMount } from 'svelte'
 	import { fetchHN } from '../../server/loaders'
-	import { query, filterSet, settings, tags, hide, apply } from '../../stores/listing-store'
+	import { query, filterSet, settings, tags, hide, apply, applied } from '../../stores/listing-store'
 	import Filters from '../_components/Filters.svelte'
 	import Card from '../_components/Card.svelte'
 
@@ -26,6 +26,7 @@
 		post.tags = tags.filter(tag => post.searchText.indexOf(tag) > -1)
 		post.hide = $hide.indexOf(post.id) > -1
 		post.apply = $apply.indexOf(post.id) > -1
+		post.applied = $applied.indexOf(post.id) > -1
 		return post
 	}) : []
 
@@ -36,9 +37,18 @@
 		: posts
 
 	$: showHidden = $settings.find(setting => setting.value === 'hidden').on
+	$: showHiddenOnly = $settings.find(setting => setting.value === 'hiddenonly').on
+	$: showToApply = $settings.find(setting => setting.value === 'apply').on
+	$: showAppliedTo = $settings.find(setting => setting.value === 'applied').on
 	$: settingsPosts = queryPosts.filter(post => {
-		let show = showHidden ? true : !post.hide
-		return show
+		if (showHiddenOnly) {
+			return post.hide
+		} else {
+			let show = showHidden ? true : !post.hide
+			show = show && (showToApply ? post.apply : true)
+			show = show && (showAppliedTo ? post.applied : true)
+			return show
+		}
 	})
 
 	$: filteredPosts = filters.length

@@ -13,8 +13,12 @@
 				<input type="checkbox" bind:checked={post.hide} on:change={toggleHide}/>
 			</label>
 			<label class={post.apply ? 'on': ''}>
-				Apply
+				To Apply
 				<input type="checkbox" bind:checked={post.apply} on:change={toggleApply}/>
+			</label>
+			<label class={post.applied ? 'on': ''}>
+				Applied To
+				<input type="checkbox" bind:checked={post.applied} on:change={toggleApplied}/>
 			</label>
 		</div>
 	</header>
@@ -24,7 +28,7 @@
 <script>
 	export let post
 	export let index
-	import { hide, apply } from '../../stores/listing-store'
+	import { hide, apply, applied } from '../../stores/listing-store'
 	import dayjs from 'dayjs'
 	let checked = false
 	function toggleHide() {
@@ -43,6 +47,15 @@
 			apply.set($apply)
 		} else {
 			apply.set([...$apply, post.id])
+		}
+	}
+	function toggleApplied() {
+		const index = $applied.findIndex(id => id === post.id)
+		if (index > -1) {
+			$applied.splice(index, 1)
+			applied.set($applied)
+		} else {
+			applied.set([...$applied, post.id])
 		}
 	}
 </script>
@@ -69,7 +82,6 @@
 	}
 	h3 { margin: 0 1.2rem 0 0; }
 	h4 { margin: 0; }
-
 	.filters {
 		display: flex;
 		flex-wrap: wrap;
