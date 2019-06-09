@@ -20,6 +20,14 @@
 				</label>
 			{/each}
 		</div>
+		<div class="filters-set">
+			{#each $languageSet as language, index}
+				<label class="{language.on ? 'on': ''}">
+					{language.label}
+					<input type="checkbox" bind:checked={$languageSet[index].on}/>
+				</label>
+			{/each}
+		</div>
 	</div>
 	<div class="meta">
 		<div class="stat">Total: {posts.length}</div>
@@ -32,7 +40,7 @@
 <script>
 	export let posts = []
 	export let filteredPosts = []
-	import { query, filterSet, settings } from '../../stores/listing-store'
+	import { query, filterSet, languageSet, settings } from '../../stores/listing-store'
 </script>
 
 <style type="text/scss">

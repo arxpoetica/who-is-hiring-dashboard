@@ -12,11 +12,14 @@
 	import { stores } from '@sapper/app'
 	import { onMount } from 'svelte'
 	import { fetchHN } from '../../server/loaders'
-	import { query, filterSet, settings, tags, hide, apply, applied } from '../../stores/listing-store'
+	import { query, filterSet, languageSet, settings, hide, apply, applied } from '../../stores/listing-store'
 	import Filters from '../_components/Filters.svelte'
 	import Card from '../_components/Card.svelte'
 
 	let listing
+
+	$: tags = $filterSet.map(set => set.value)
+	$: languagesTags = $languageSet.map(set => set.value)
 
 	$: title = listing ? listing.title : 'Loading...'
 	$: posts = listing ? listing.children.map(post => {
@@ -24,13 +27,12 @@
 		const doc = new DOMParser().parseFromString(post.text, 'text/html')
 		post.searchText = doc.body.textContent.replace(/\s\s+/g, ' ').toLowerCase()
 		post.tags = tags.filter(tag => post.searchText.indexOf(tag) > -1)
+		post.languages = languagesTags.filter(tag => post.searchText.indexOf(tag) > -1)
 		post.hide = $hide.indexOf(post.id) > -1
 		post.apply = $apply.indexOf(post.id) > -1
 		post.applied = $applied.indexOf(post.id) > -1
 		return post
 	}) : []
-
-	$: filters = $filterSet.filter(set => set.on).map(set => set.value)
 
 	$: queryPosts = $query.length > 2
 		? posts.filter(post => post.searchText.indexOf($query) > -1)
@@ -51,18 +53,27 @@
 		}
 	})
 
-	$: filteredPosts = filters.length
+	$: languages = $languageSet.filter(set => set.on).map(set => set.value)
+	$: languagesPosts = languages.length
 		? settingsPosts.filter(post => {
+			const found = languages.filter(language => post.languages.indexOf(language) > -1)
+			return found.length === languages.length
+		})
+		: settingsPosts
+
+	$: filters = $filterSet.filter(set => set.on).map(set => set.value)
+	$: filteredPosts = filters.length
+		? languagesPosts.filter(post => {
 			const found = filters.filter(filter => post.tags.indexOf(filter) > -1)
 			return found.length === filters.length
 		})
-		: settingsPosts
+		: languagesPosts
 
 	const { page } = stores()
 	onMount(async () => {
 		const res = await fetchHN(`items/${$page.params.id}`)
 		listing = await res.json()
-		console.log(listing)
+		// console.log(listing)
 	})
 </script>
 
