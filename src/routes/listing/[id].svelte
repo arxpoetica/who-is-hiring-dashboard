@@ -9,8 +9,6 @@
 		. . . loading . . .
 		<div class="svgs">
 			<div class="svg"><Loader/></div>
-			<div class="svg"><Loader/></div>
-			<div class="svg"><Loader/></div>
 		</div>
 	{/if}
 </h1>
@@ -109,8 +107,9 @@
 		margin: 10rem 0 0;
 	}
 	.svg {
-		min-width: 20rem;
+		min-width: 40rem;
 		margin: 2.5rem;
 		line-height: 0;
+		color: red;
 	}
 </style>

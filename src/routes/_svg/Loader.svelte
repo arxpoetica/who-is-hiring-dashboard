@@ -1,4 +1,4 @@
-<svg viewBox="0 0 57 57" stroke="#1e3d43">
+<svg viewBox="0 0 57 57" stroke="#eee">
 	<g transform="translate(1 1)" stroke-width="2" fill="none" fill-rule="evenodd">
 		<circle cx="5" cy="50" r="5">
 			<animate attributeName="cy" begin="0s" dur="2.2s" values="50;5;50;50" calcMode="linear" repeatCount="indefinite"/>
