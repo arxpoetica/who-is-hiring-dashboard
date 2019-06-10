@@ -16,19 +16,27 @@
 </h1>
 {#if listing}
 	<Filters {posts} {filteredPosts}/>
-	{#each filteredPosts as post, index}
-		<Card {post} {index}/>
+	{#each filteredPosts as post, index (post.id)}
+		<!-- <Card {post} {index} {hide} {apply} {applied}/> -->
+		<Card bind:posts {post} {index}/>
 	{/each}
 {/if}
 
 <script>
 	import { stores } from '@sapper/app'
-	import { onMount } from 'svelte'
+	import { onMount, setContext } from 'svelte'
 	import { fetchHN } from '../../server/loaders'
-	import { query, filterSet, languageSet, settings, hide, apply, applied } from '../../stores/listing-store'
+	import { storable } from '../../stores/local-store'
+	import { query, filterSet, languageSet, settings } from '../../stores/listing-store'
 	import Loader from '../_svg/Loader.svelte'
 	import Filters from '../_components/Filters.svelte'
 	import Card from '../_components/Card.svelte'
+
+	const { page } = stores()
+	const hide = storable(`hide.${$page.params.id}`, [])
+	const apply = storable(`apply.${$page.params.id}`, [])
+	const applied = storable(`applied.${$page.params.id}`, [])
+	setContext('storables', { hide, apply, applied })
 
 	let listing
 	let posts = []
@@ -63,11 +71,10 @@
 		return show
 	})
 
-	const { page } = stores()
 	onMount(async () => {
 		const res = await fetchHN(`items/${$page.params.id}`)
 		listing = await res.json()
-		console.log(listing)
+		// console.log(listing)
 
 		const tags = $filterSet.map(set => set.value)
 		const languagesTags = $languageSet.map(set => set.value)

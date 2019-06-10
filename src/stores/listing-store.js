@@ -27,8 +27,3 @@ export const settings = storable('setting', [
 	{ value: 'hidden', label: 'Show Hidden', on: false },
 	{ value: 'hiddenonly', label: 'Show Hidden Only', on: false },
 ])
-
-// TODO: apply these to *each* listing, so we're saving for all, and not overwriting
-export const hide = storable('hide', [])
-export const apply = storable('apply', [])
-export const applied = storable('applied', [])

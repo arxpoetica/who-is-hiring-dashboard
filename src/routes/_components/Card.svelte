@@ -8,15 +8,15 @@
 			<h4>Posted: {dayjs(post.created_at).format('MMMM DD, YYYY @ h:mma')}</h4>
 		</div>
 		<div class="filters">
-			<label class={post.hide ? 'on': ''}>
+			<label class={hideState ? 'on': ''}>
 				Hide
 				<input type="checkbox" bind:checked={post.hide} on:change={toggleHide}/>
 			</label>
-			<label class={post.apply ? 'on': ''}>
+			<label class={applyState ? 'on': ''}>
 				To Apply
 				<input type="checkbox" bind:checked={post.apply} on:change={toggleApply}/>
 			</label>
-			<label class={post.applied ? 'on': ''}>
+			<label class={appliedState ? 'on': ''}>
 				Applied To
 				<input type="checkbox" bind:checked={post.applied} on:change={toggleApplied}/>
 			</label>
@@ -26,37 +26,61 @@
 </div>
 
 <script>
+	import { onMount } from 'svelte'
+	export let posts
 	export let post
 	export let index
-	import { hide, apply, applied } from '../../stores/listing-store'
+
+	let hideState = false
+	let applyState = false
+	let appliedState = false
+
+	import { getContext } from 'svelte'
 	import dayjs from 'dayjs'
+	const { hide, apply, applied } = getContext('storables')
+
+	onMount(() => {
+		hideState = post.hide
+		applyState = post.apply
+		appliedState = post.applied
+	})
+
 	let checked = false
 	function toggleHide() {
 		const index = $hide.findIndex(id => id === post.id)
 		if (index > -1) {
+			hideState = false
 			$hide.splice(index, 1)
 			hide.set($hide)
 		} else {
+			hideState = true
 			hide.set([...$hide, post.id])
 		}
+		posts = posts // just rejiggering state
 	}
 	function toggleApply() {
 		const index = $apply.findIndex(id => id === post.id)
 		if (index > -1) {
+			applyState = false
 			$apply.splice(index, 1)
 			apply.set($apply)
 		} else {
+			applyState = true
 			apply.set([...$apply, post.id])
 		}
+		posts = posts // just rejiggering state
 	}
 	function toggleApplied() {
 		const index = $applied.findIndex(id => id === post.id)
 		if (index > -1) {
+			appliedState = false
 			$applied.splice(index, 1)
 			applied.set($applied)
 		} else {
+			appliedState = true
 			applied.set([...$applied, post.id])
 		}
+		posts = posts // just rejiggering state
 	}
 </script>
 
