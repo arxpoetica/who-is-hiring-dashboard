@@ -1,8 +1,14 @@
 {
-  "name": "who-is-hiring",
-  "description": "Interface based on Ask HN: Who is hiring?",
+  "name": "who-is-hiring-dashboard",
+  "description": "Dashboard for Ask HN: Who is hiring?",
   "version": "0.0.1",
   "license": "MIT",
+  "author": "Robert Hall <langbert@gmail.com> (http://arxpoetica.com/)",
+  "homepage": "https://github.com/arxpoetica/who-is-hiring-dashboard#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arxpoetica/who-is-hiring-dashboard.git"
+  },
   "scripts": {
     "dev": "sapper dev -p 3001",
     "build": "sapper build --legacy",
