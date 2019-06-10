@@ -1,7 +1,7 @@
 {
   "name": "who-is-hiring-dashboard",
   "description": "Dashboard for Ask HN: Who is hiring?",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "author": "Robert Hall <langbert@gmail.com> (http://arxpoetica.com/)",
   "homepage": "https://github.com/arxpoetica/who-is-hiring-dashboard#readme",
