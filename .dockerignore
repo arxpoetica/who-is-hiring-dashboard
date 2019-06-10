@@ -1,0 +1,8 @@
+/*
+!/__sapper__
+/__sapper__/*
+!/__sapper__/build
+!/static
+!/package.json
+!/yarn.lock
+!/Dockerfile
