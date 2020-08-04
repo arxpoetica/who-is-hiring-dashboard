@@ -29,7 +29,7 @@
 	import { onMount } from 'svelte'
 	export let posts
 	export let post
-	export let index
+	// export let index
 
 	let hideState = false
 	let applyState = false
