@@ -9,6 +9,9 @@
     "type": "git",
     "url": "git+https://github.com/arxpoetica/who-is-hiring-dashboard.git"
   },
+  "volta": {
+    "node": "14.5.0"
+  },
   "scripts": {
     "dev": "sapper dev -p 3001",
     "build": "sapper build --legacy",
