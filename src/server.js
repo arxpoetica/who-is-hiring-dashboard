@@ -1,7 +1,8 @@
 import { green, red } from 'ansi-colors'
 import express from 'express'
 import morgan from 'morgan'
-import helmet from 'helmet'
+// import { v4 as uuidv4 } from 'uuid'
+// import helmet from 'helmet'
 import compression from 'compression'
 import sirv from 'sirv'
 import * as sapper from '@sapper/server'
@@ -18,19 +19,22 @@ const app = express()
 app.use(morgan(development ? 'dev' : 'combined', {
 	skip: (req, res) => development ? false : res.statusCode < 400,
 }))
-app.use((req, res, next) => {
-	res.locals.nonce = uuidv4()
-	next()
-})
-// SEE: https://expressjs.com/en/advanced/best-practice-security.html
-app.use(helmet({
-	contentSecurityPolicy: {
-		directives: {
-			scriptSrc: ['\'self\'', (req, res) => `'nonce-${res.locals.nonce}'`],
-		},
-	},
-}))
-app.set('trust proxy', 1) // trust first proxy
+// app.use((req, res, next) => {
+// 	res.locals.nonce = uuidv4()
+// 	next()
+// })
+// // SEE: https://expressjs.com/en/advanced/best-practice-security.html
+// app.use(helmet({
+// 	contentSecurityPolicy: {
+// 		directives: {
+// 			scriptSrc: ['\'self\'', (req, res) => {
+// 				console.log(res.locals.nonce)
+// 				return `'nonce-${res.locals.nonce}'`
+// 			}],
+// 		},
+// 	},
+// }))
+// app.set('trust proxy', 1) // trust first proxy
 app.use(compression({ threshold: 0 }))
 app.use(sirv('static', { development }))
 app.use(sapper.middleware())
