@@ -13,8 +13,8 @@
 	{/if}
 </h1>
 {#if listing}
-	<Filters {posts} {filteredPosts}/>
-	{#each filteredPosts as post, index (post.id)}
+	<Filters {posts} {filtered_posts}/>
+	{#each filtered_posts as post, index (post.id)}
 		<!-- <Card {post} {index} {hide} {apply} {applied}/> -->
 		<Card bind:posts {post} {index}/>
 	{/each}
@@ -39,24 +39,24 @@
 	let listing
 	let posts = []
 
-	$: hasQuery = $query.length > 2
-	$: showHidden = $settings.find(setting => setting.value === 'hidden').on
-	$: showHiddenOnly = $settings.find(setting => setting.value === 'hiddenonly').on
-	$: showToApply = $settings.find(setting => setting.value === 'apply').on
-	$: showAppliedTo = $settings.find(setting => setting.value === 'applied').on
+	$: has_query = $query.length > 2
+	$: show_hidden = $settings.find(setting => setting.value === 'hidden').on
+	$: show_hidden_only = $settings.find(setting => setting.value === 'hiddenonly').on
+	$: show_to_apply = $settings.find(setting => setting.value === 'apply').on
+	$: show_applied_to = $settings.find(setting => setting.value === 'applied').on
 	$: languages = $languageSet.filter(set => set.on).map(set => set.value)
 	$: filters = $filterSet.filter(set => set.on).map(set => set.value)
-	$: filteredPosts = posts.filter(post => {
+	$: filtered_posts = posts.filter(post => {
 		let show = true
-		if (hasQuery) {
+		if (has_query) {
 			show = show && post.searchText.indexOf($query) > -1
 		}
-		if (showHiddenOnly) {
+		if (show_hidden_only) {
 			show = show && post.hide
 		} else {
-			show = show && (showHidden ? true : !post.hide)
-			show = show && (showToApply ? post.apply : true)
-			show = show && (showAppliedTo ? post.applied : true)
+			show = show && (show_hidden ? true : !post.hide)
+			show = show && (show_to_apply ? post.apply : true)
+			show = show && (show_applied_to ? post.applied : true)
 		}
 		if (languages.length) {
 			const found = languages.filter(language => post.languages.indexOf(language) > -1)

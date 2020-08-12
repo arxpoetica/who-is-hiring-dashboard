@@ -1,12 +1,12 @@
 <div class="filters">
 	<div class="all-filters">
-		<label class="search {$query.length > 2 ? 'on': ''}">
+		<label class="search" class:on={$query.length > 2}>
 			Search
 			<input type="text" bind:value={$query} placeholder="for text on the page..."/>
 		</label>
 		<div class="filters-set">
 			{#each $settings as setting, index}
-				<label class="{setting.on ? 'on': ''}">
+				<label class:on={setting.on}>
 					{setting.label}
 					<input type="checkbox" bind:checked={$settings[index].on}/>
 				</label>
@@ -14,7 +14,7 @@
 		</div>
 		<div class="filters-set">
 			{#each $filterSet as filter, index}
-				<label class="{filter.on ? 'on': ''}">
+				<label class:on={filter.on}>
 					{filter.label}
 					<input type="checkbox" bind:checked={$filterSet[index].on}/>
 				</label>
@@ -22,7 +22,7 @@
 		</div>
 		<div class="filters-set">
 			{#each $languageSet as language, index}
-				<label class="{language.on ? 'on': ''}">
+				<label class:on={language.on}>
 					{language.label}
 					<input type="checkbox" bind:checked={$languageSet[index].on}/>
 				</label>
@@ -31,15 +31,15 @@
 	</div>
 	<div class="meta">
 		<div class="stat">Total: {posts.length}</div>
-		{#if filteredPosts.length < posts.length}
-			<div class="stat">Filtered: {filteredPosts.length}</div>
+		{#if filtered_posts.length < posts.length}
+			<div class="stat">Filtered: {filtered_posts.length}</div>
 		{/if}
 	</div>
 </div>
 
 <script>
 	export let posts = []
-	export let filteredPosts = []
+	export let filtered_posts = []
 	import { query, filterSet, languageSet, settings } from '../../stores/listing-store'
 </script>
 

@@ -8,17 +8,17 @@
 			<h4>Posted: {dayjs(post.created_at).format('MMMM DD, YYYY @ h:mma')}</h4>
 		</div>
 		<div class="filters">
-			<label class={hideState ? 'on': ''}>
+			<label class:on={hide_state}>
 				Hide
-				<input type="checkbox" bind:checked={post.hide} on:change={toggleHide}/>
+				<input type="checkbox" bind:checked={post.hide} on:change={toggle_hide}/>
 			</label>
-			<label class={applyState ? 'on': ''}>
+			<label class:on={apply_state}>
 				To Apply
-				<input type="checkbox" bind:checked={post.apply} on:change={toggleApply}/>
+				<input type="checkbox" bind:checked={post.apply} on:change={toggle_apply}/>
 			</label>
-			<label class={appliedState ? 'on': ''}>
+			<label class:on={applied_state}>
 				Applied To
-				<input type="checkbox" bind:checked={post.applied} on:change={toggleApplied}/>
+				<input type="checkbox" bind:checked={post.applied} on:change={toggle_applied}/>
 			</label>
 		</div>
 	</header>
@@ -26,58 +26,51 @@
 </div>
 
 <script>
-	import { onMount } from 'svelte'
 	export let posts
 	export let post
 	// export let index
 
-	let hideState = false
-	let applyState = false
-	let appliedState = false
+	$: hide_state = post.hide
+	$: apply_state = post.apply
+	$: applied_state = post.applied
 
 	import { getContext } from 'svelte'
 	import dayjs from 'dayjs'
 	const { hide, apply, applied } = getContext('storables')
 
-	onMount(() => {
-		hideState = post.hide
-		applyState = post.apply
-		appliedState = post.applied
-	})
-
 	let checked = false
-	function toggleHide() {
+	function toggle_hide() {
 		const index = $hide.findIndex(id => id === post.id)
 		if (index > -1) {
-			hideState = false
+			hide_state = false
 			$hide.splice(index, 1)
 			hide.set($hide)
 		} else {
-			hideState = true
+			hide_state = true
 			hide.set([...$hide, post.id])
 		}
 		posts = posts // just rejiggering state
 	}
-	function toggleApply() {
+	function toggle_apply() {
 		const index = $apply.findIndex(id => id === post.id)
 		if (index > -1) {
-			applyState = false
+			apply_state = false
 			$apply.splice(index, 1)
 			apply.set($apply)
 		} else {
-			applyState = true
+			apply_state = true
 			apply.set([...$apply, post.id])
 		}
 		posts = posts // just rejiggering state
 	}
-	function toggleApplied() {
+	function toggle_applied() {
 		const index = $applied.findIndex(id => id === post.id)
 		if (index > -1) {
-			appliedState = false
+			applied_state = false
 			$applied.splice(index, 1)
 			applied.set($applied)
 		} else {
-			appliedState = true
+			applied_state = true
 			applied.set([...$applied, post.id])
 		}
 		posts = posts // just rejiggering state
