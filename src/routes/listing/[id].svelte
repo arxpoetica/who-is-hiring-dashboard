@@ -94,7 +94,7 @@
 
 <style type="text/scss">
 	h1 {
-		margin: 1.2rem;
+		margin: 12rem;
 		text-align: center;
 		&.listing {
 			text-align: left;
@@ -104,11 +104,11 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		margin: 10rem 0 0;
+		margin: 100rem 0 0;
 	}
 	.svg {
-		min-width: 40rem;
-		margin: 2.5rem;
+		min-width: 400rem;
+		margin: 25rem;
 		line-height: 0;
 		color: red;
 	}

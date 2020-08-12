@@ -45,24 +45,24 @@
 
 <style type="text/scss">
 	.filters {
-		margin: 0 0 2.6rem;
+		margin: 0 0 26rem;
 	}
 	.all-filters {
-		border: 1px solid $gray-light;
-		padding: 1rem;
+		border: 1rem solid $orange-mid;
+		padding: 10rem;
 	}
 	.search {
 		justify-content: flex-start;
 		position: relative;
 		margin: 0;
-		padding: 0 1.2rem;
+		padding: 0 12rem;
 	}
 	input[type="text"] {
 		flex: 1;
-		margin: 0.4rem 0 0.4rem 0.6rem;
-		padding: 0 0.6rem;
-		border: 1px solid $gray-light;
-		box-shadow: inset 0 0 4px $gray-light;
+		margin: 4rem 0 4rem 6rem;
+		padding: 0 6rem;
+		border: 1rem solid $orange-mid;
+		box-shadow: inset 0 0 4rem $orange-mid;
 		font: inherit;
 	}
 	.filters-set {
@@ -73,9 +73,9 @@
 	label {
 		display: flex;
 		align-items: center;
-		margin: 1rem 1rem 0 0;
-		padding: 0.4rem 1.2rem;
-		border: 1px solid rgba(255, 158, 11, 0.2);
+		margin: 10rem 10rem 0 0;
+		padding: 4rem 12rem;
+		border: 1rem solid rgba(255, 158, 11, 0.2);
 		cursor: pointer;
 		user-select: none;
 		&.on {
@@ -83,15 +83,15 @@
 		}
 	}
 	input[type="checkbox"] {
-		margin: 0.2rem 0 0 0.6rem;
+		margin: 2rem 0 0 6rem;
 		cursor: pointer;
 	}
 	.meta {
 		display: flex;
 		align-items: center;
-		padding: 1.1rem;
+		padding: 11rem;
 	}
 	.stat {
-		margin-right: 1rem;
+		margin-right: 10rem;
 	}
 </style>

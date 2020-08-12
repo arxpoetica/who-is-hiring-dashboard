@@ -15,9 +15,9 @@
 
 <style type="text/scss">
 	nav {
-		border-bottom: 1px solid $gray-light;
-		padding: 0 3rem;
-		margin: 0 0 5rem;
+		border-bottom: 1rem solid $orange-mid;
+		padding: 0 30rem;
+		margin: 0 0 50rem;
 		background-color: rgba(255, 158, 11, 0.1);
 	}
 	ul {
@@ -33,14 +33,14 @@
 		position: absolute;
 		content: '';
 		width: 100%;
-		height: 3px;
+		height: 3rem;
 		background-color: rgb(255, 158, 11);
 		display: block;
-		bottom: -1px;
+		bottom: -1rem;
 	}
 	a {
 		text-decoration: none;
-		padding: 1rem 3rem;
+		padding: 10rem 30rem;
 		display: block;
 		text-align: center;
 	}

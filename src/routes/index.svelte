@@ -24,6 +24,6 @@
 
 <style type="text/scss">
 	.post {
-		margin: 0 0 2rem;
+		margin: 0 0 20rem;
 	}
 </style>

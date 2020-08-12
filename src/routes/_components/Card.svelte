@@ -79,25 +79,26 @@
 
 <style type="text/scss">
 	.block {
-		padding: 2.6rem;
-		margin: 0 0 2.6rem;
+		padding: 26rem;
+		margin: 0 0 26rem;
 		background-color: rgba(255, 158, 11, 0.05);
-		border: 1px solid $orange-mid;
+		border: 1rem solid $orange-mid;
+		font: 22rem/1.4 $font;
 	}
 	header {
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
-		padding: 1.2rem;
-		background-color: white;
-		border: 1px solid $gray-light;
+		padding: 12rem;
+		background-color: rgba(255, 255, 255, 0.05);
+		border: 1rem solid $orange-mid;
 	}
 	// .meta {}
 	.titles {
 		display: flex;
 		align-items: center;
 	}
-	h3 { margin: 0 1.2rem 0 0; }
+	h3 { margin: 0 12rem 0 0; }
 	h4 { margin: 0; }
 	.filters {
 		display: flex;
@@ -106,9 +107,9 @@
 	label {
 		display: flex;
 		align-items: center;
-		margin: 0 0 0 1rem;
-		padding: 0.4rem 1.2rem;
-		border: 1px solid rgba(255, 158, 11, 0.2);
+		margin: 0 0 0 10rem;
+		padding: 4rem 12rem;
+		border: 1rem solid rgba(255, 158, 11, 0.2);
 		cursor: pointer;
 		user-select: none;
 		&.on {
@@ -116,6 +117,6 @@
 		}
 	}
 	input[type="checkbox"] {
-		margin: 0.2rem 0 0 0.6rem;
+		margin: 2rem 0 0 6rem;
 	}
 </style>
