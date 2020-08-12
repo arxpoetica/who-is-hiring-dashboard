@@ -25,7 +25,7 @@
 	import { onMount, setContext } from 'svelte'
 	import { fetchHN } from '../../server/loaders'
 	import { storable } from '../../stores/local-store'
-	import { query, filterSet, languageSet, settings } from '../../stores/listing-store'
+	import { query, filter_set, language_set, settings } from '../../stores/listing-store'
 	import Loader from '../_svg/Loader.svelte'
 	import Filters from '../_components/Filters.svelte'
 	import Card from '../_components/Card.svelte'
@@ -41,22 +41,29 @@
 
 	$: has_query = $query.length > 2
 	$: show_hidden = $settings.find(setting => setting.value === 'hidden').on
+	$: show_applied_only = $settings.find(setting => setting.value === 'appliedonly').on
+	$: show_apply_only = $settings.find(setting => setting.value === 'applyonly').on
 	$: show_hidden_only = $settings.find(setting => setting.value === 'hiddenonly').on
 	$: show_to_apply = $settings.find(setting => setting.value === 'apply').on
 	$: show_applied_to = $settings.find(setting => setting.value === 'applied').on
-	$: languages = $languageSet.filter(set => set.on).map(set => set.value)
-	$: filters = $filterSet.filter(set => set.on).map(set => set.value)
+	$: languages = $language_set.filter(set => set.on).map(set => set.value)
+	$: filters = $filter_set.filter(set => set.on).map(set => set.value)
 	$: filtered_posts = posts.filter(post => {
 		let show = true
 		if (has_query) {
 			show = show && post.searchText.indexOf($query) > -1
 		}
-		if (show_hidden_only) {
+		console.log(show_applied_only)
+		if (show_applied_only) {
+			show = show && post.applied
+		} else if (show_apply_only) {
+			show = show && post.apply
+		} else if (show_hidden_only) {
 			show = show && post.hide
 		} else {
 			show = show && (show_hidden ? true : !post.hide)
-			show = show && (show_to_apply ? post.apply : true)
-			show = show && (show_applied_to ? post.applied : true)
+			show = show && (show_to_apply ? true : !post.apply)
+			show = show && (show_applied_to ? true : !post.applied)
 		}
 		if (languages.length) {
 			const found = languages.filter(language => post.languages.indexOf(language) > -1)
@@ -74,8 +81,8 @@
 		listing = await res.json()
 		// console.log(listing)
 
-		const tags = $filterSet.map(set => set.value)
-		const languagesTags = $languageSet.map(set => set.value)
+		const tags = $filter_set.map(set => set.value)
+		const languagesTags = $language_set.map(set => set.value)
 
 		posts = listing.children.map(post => {
 			// just indexing and optimizing for faster search / filter

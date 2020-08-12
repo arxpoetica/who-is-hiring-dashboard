@@ -13,18 +13,18 @@
 			{/each}
 		</div>
 		<div class="filters-set">
-			{#each $filterSet as filter, index}
+			{#each $filter_set as filter, index}
 				<label class:on={filter.on}>
 					{filter.label}
-					<input type="checkbox" bind:checked={$filterSet[index].on}/>
+					<input type="checkbox" bind:checked={$filter_set[index].on}/>
 				</label>
 			{/each}
 		</div>
 		<div class="filters-set">
-			{#each $languageSet as language, index}
+			{#each $language_set as language, index}
 				<label class:on={language.on}>
 					{language.label}
-					<input type="checkbox" bind:checked={$languageSet[index].on}/>
+					<input type="checkbox" bind:checked={$language_set[index].on}/>
 				</label>
 			{/each}
 		</div>
@@ -40,7 +40,7 @@
 <script>
 	export let posts = []
 	export let filtered_posts = []
-	import { query, filterSet, languageSet, settings } from '../../stores/listing-store'
+	import { query, filter_set, language_set, settings } from '../../stores/listing-store'
 </script>
 
 <style type="text/scss">
