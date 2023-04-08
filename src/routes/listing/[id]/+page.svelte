@@ -23,12 +23,12 @@
 <script>
 	import { stores } from '@sapper/app'
 	import { onMount, setContext } from 'svelte'
-	import { fetchHN } from '../../server/loaders'
-	import { storable } from '../../stores/local-store'
-	import { query, filter_set, language_set, settings } from '../../stores/listing-store'
-	import Loader from '../_svg/Loader.svelte'
-	import Filters from '../_components/Filters.svelte'
-	import Card from '../_components/Card.svelte'
+	import { fetchHN } from '../../../server/loaders'
+	import { storable } from '../../../stores/local-store'
+	import { query, filter_set, language_set, settings } from '../../../stores/listing-store'
+	import Loader from '../../_svg/Loader.svelte'
+	import Filters from '../../_components/Filters.svelte'
+	import Card from '../../_components/Card.svelte'
 
 	const { page } = stores()
 	const hide = storable(`hide.${$page.params.id}`, [])

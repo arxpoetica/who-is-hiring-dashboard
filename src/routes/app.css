@@ -1,13 +1,22 @@
+:root {
+	--black: #1b1a1a;
+	--orange-light: #fff6ea;
+	--orange-mid: #443f39;
+	--orange: #ff9e0b;
+	--gray-mid: #ccc;
+	--font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+}
+
 html {
-	font-size: 1px; // 1rem === 1px in this scenario
-	background-color: #1b1a1a;
+	font-size: 1px; /* 1rem === 1px in this scenario */
+	background-color: var(--black);
 }
 
 body {
 	margin: 0;
-	font: 14rem/1.5 'Source Sans Pro', Helvetica, Arial, sans-serif;
+	font: 14rem/1.5 var(--font-family);
 	color: #a5a6b5;
-	background-color: #1b1a1a;
+	background-color: var(--black);
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -1,4 +1,0 @@
-#!include:.dockerignore
-!/.env.enc
-!/rollup.config.js
-!/src

@@ -1,6 +1,6 @@
 # Who is Hiring Dashboard
 
-Built on the awesome [SvelteJS](https://svelte.dev/) framework and equally awesome [Sapper](https://sapper.svelte.dev/) deploy platform.
+Built with [Svelte](https://svelte.dev/) and [SvelteKit](https://kit.svelte.dev/).
 
 Pulls posts from user [whoishiring](https://news.ycombinator.com/user?id=whoishiring) on Hacker News, and provides useful tools for sorting and saving settings / filters to localStorage.
 
@@ -15,7 +15,7 @@ npx degit "arxpoetica/who-is-hiring-dashboard" who-is-hiring
 npm install
 npm run dev
 
-Jump over to [localhost:3001](http://localhost:3001/).
+Jump over to [localhost:5173](http://localhost:5173/).
 
 ### Development
 
