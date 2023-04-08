@@ -1,10 +1,39 @@
 :root {
 	--black: #1b1a1a;
-	--orange-light: #fff6ea;
-	--orange-mid: #443f39;
-	--orange: #ff9e0b;
-	--gray-mid: #ccc;
-	--font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+	--black-1: #322b2b;
+	--black-2: #605454;
+	--black-3: #887777;
+
+	--yellow: #fff30b;
+	--purple: #6702d2;
+
+	--text: #ccc;
+
+	--font-family: 'Mulish', Helvetica, Arial, sans-serif;
+	--light: 200;
+	--normal: 400;
+	--bold: 700;
+	--heavy: 1000;
+
+	--font-mono-family: 'Fira Code', monospace;
+	--mono-normal: 400;
+	--mono-bold: 700;
+}
+
+::-webkit-scrollbar {
+	width: 10rem;
+	height: 10rem;
+}
+::-webkit-scrollbar-track {
+	background-color: var(--black-2);
+}
+::-webkit-scrollbar-thumb {
+	background-color: var(--black-3);
+	border-left: 1rem solid var(--black-2);
+	border-radius: 10rem;
+}
+::-webkit-scrollbar-corner {
+	background: var(--black-2);
 }
 
 html {
@@ -18,6 +47,11 @@ body {
 	color: #a5a6b5;
 	background-color: var(--black);
 }
+@media (min-width: 400px) {
+	body {
+		font-size: 16rem;
+	}
+}
 
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 20rem;
@@ -30,24 +64,30 @@ h1 {
 }
 
 a {
-	color: inherit;
+	text-decoration: none;
+	color: var(--text);
 }
-
-code {
-	font-family: menlo, inconsolata, monospace;
-	font-size: 10rem;
-	color: #f0f0f0;
-	background-color: #555;
-	padding: 2em 4em;
-	border-radius: 2rem;
+a:hover {
+	color: var(--yellow);
 }
 
 input {
 	opacity: 0.75;
 }
 
-@media (min-width: 400px) {
-	body {
-		font-size: 16rem;
-	}
+pre {
+	/* overflow-x: auto; */
+	margin: 0 0 20rem;
+	padding: 10rem;
+	background-color: var(--black);
+	color: var(--text);
+	font: 14rem/1.2 var(--font-mono-family);
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+code {
+	margin: 0;
+	padding: 0;
+	font: inherit;
 }

@@ -15,8 +15,17 @@
 	{/each}
 </div>
 
-<style type="text/scss">
+<style>
 	.hits {
+		display: grid;
+		gap: 2rem;
 		margin: 0 0 20rem;
+	}
+	.hit {
+		padding: 8rem 20rem;
+		background-color: var(--black-1);
+	}
+	h2 {
+		margin: 0;
 	}
 </style>

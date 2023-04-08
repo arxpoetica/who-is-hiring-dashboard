@@ -40,10 +40,10 @@
 <script>
 	export let posts = []
 	export let filtered_posts = []
-	import { query, filter_set, language_set, settings } from '../../stores/listing-store'
+	import { query, filter_set, language_set, settings } from '../../lib/stores/listing-store'
 </script>
 
-<style type="text/scss">
+<style>
 	.filters {
 		margin: 0 0 26rem;
 	}

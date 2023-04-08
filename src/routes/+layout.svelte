@@ -1,3 +1,6 @@
+<svelte:head>
+	<title>HN Who's Hiring Dashboard?</title>
+</svelte:head>
 <main>
 	<Nav/>
 	<slot></slot>

@@ -77,7 +77,7 @@
 	}
 </script>
 
-<style type="text/scss">
+<style>
 	.block {
 		padding: 26rem;
 		margin: 0 0 26rem;
