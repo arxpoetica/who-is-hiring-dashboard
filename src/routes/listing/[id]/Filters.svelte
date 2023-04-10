@@ -1,3 +1,9 @@
+<script>
+	export let posts = []
+	export let filtered_posts = []
+	import { query, filter_set, language_set, settings } from '$lib/stores/listing-store'
+</script>
+
 <div class="filters">
 	<div class="all-filters">
 		<label class="search" class:on={$query.length > 2}>
@@ -37,18 +43,12 @@
 	</div>
 </div>
 
-<script>
-	export let posts = []
-	export let filtered_posts = []
-	import { query, filter_set, language_set, settings } from '../../lib/stores/listing-store'
-</script>
-
 <style>
 	.filters {
 		margin: 0 0 26rem;
 	}
 	.all-filters {
-		border: 1rem solid $orange-mid;
+		/* border: 1rem solid $orange-mid; */
 		padding: 10rem;
 	}
 	.search {
@@ -61,8 +61,8 @@
 		flex: 1;
 		margin: 4rem 0 4rem 6rem;
 		padding: 0 6rem;
-		border: 1rem solid $orange-mid;
-		box-shadow: inset 0 0 4rem $orange-mid;
+		/* border: 1rem solid $orange-mid; */
+		/* box-shadow: inset 0 0 4rem $orange-mid; */
 		font: inherit;
 	}
 	.filters-set {
@@ -78,10 +78,10 @@
 		border: 1rem solid rgba(255, 158, 11, 0.2);
 		cursor: pointer;
 		user-select: none;
-		&.on {
-			background-color: $orange-mid;
-		}
 	}
+	/* label.on {
+		background-color: $orange-mid;
+	} */
 	input[type="checkbox"] {
 		margin: 2rem 0 0 6rem;
 		cursor: pointer;

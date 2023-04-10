@@ -26,6 +26,7 @@
 		"update": "pnpm update --interactive --latest"
 	},
 	"dependencies": {
+		"dayjs": "1.11.7",
 		"devalue": "4.3.0"
 	},
 	"devDependencies": {

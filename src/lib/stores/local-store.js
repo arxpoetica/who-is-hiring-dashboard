@@ -3,12 +3,12 @@ import { browser } from '$app/environment'
 import { writable } from 'svelte/store'
 // import { uneval, parse } from 'devalue'
 
-export const storable = (key = 'default', value = undefined) => {
+export const storable = (key = 'default', value) => {
 
 	// quick guard against server
 	if (!browser) { return writable(value) }
 
-	key = `hn.store.${key}`
+	key = `hn.${key}`
 	if (window.localStorage[key] && typeof window.localStorage[key] === 'string') {
 		value = JSON.parse(window.localStorage[key])
 	}

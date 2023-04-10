@@ -1,31 +1,8 @@
-<div class="block">
-	<header>
-		<div class="meta">
-			<div class="titles">
-				<h3><a href="https://news.ycombinator.com/item?id={post.id}" target="_blank">Original Thread</a></h3>
-				<h3><a href="https://news.ycombinator.com/user?id={post.author}" target="_blank">Author: {post.author}</a></h3>
-			</div>
-			<h4>Posted: {dayjs(post.created_at).format('MMMM DD, YYYY @ h:mma')}</h4>
-		</div>
-		<div class="filters">
-			<label class:on={hide_state}>
-				Hide
-				<input type="checkbox" bind:checked={post.hide} on:change={toggle_hide}/>
-			</label>
-			<label class:on={apply_state}>
-				To Apply
-				<input type="checkbox" bind:checked={post.apply} on:change={toggle_apply}/>
-			</label>
-			<label class:on={applied_state}>
-				Applied To
-				<input type="checkbox" bind:checked={post.applied} on:change={toggle_applied}/>
-			</label>
-		</div>
-	</header>
-	{@html post.text}
-</div>
-
 <script>
+	import { getContext } from 'svelte'
+	import dayjs from 'dayjs'
+	const { hide, apply, applied } = getContext('storables')
+
 	export let posts
 	export let post
 	// export let index
@@ -33,10 +10,6 @@
 	$: hide_state = post.hide
 	$: apply_state = post.apply
 	$: applied_state = post.applied
-
-	import { getContext } from 'svelte'
-	import dayjs from 'dayjs'
-	const { hide, apply, applied } = getContext('storables')
 
 	let checked = false
 	function toggle_hide() {
@@ -77,13 +50,41 @@
 	}
 </script>
 
+
+<div class="block">
+	<header>
+		<div class="meta">
+			<div class="titles">
+				<h3><a href="https://news.ycombinator.com/item?id={post.id}" target="_blank">Original Thread</a></h3>
+				<h3><a href="https://news.ycombinator.com/user?id={post.author}" target="_blank">Author: {post.author}</a></h3>
+			</div>
+			<h4>Posted: {dayjs(post.created_at).format('MMMM DD, YYYY @ h:mma')}</h4>
+		</div>
+		<div class="filters">
+			<label class:on={hide_state}>
+				Hide
+				<input type="checkbox" bind:checked={post.hide} on:change={toggle_hide}/>
+			</label>
+			<label class:on={apply_state}>
+				To Apply
+				<input type="checkbox" bind:checked={post.apply} on:change={toggle_apply}/>
+			</label>
+			<label class:on={applied_state}>
+				Applied To
+				<input type="checkbox" bind:checked={post.applied} on:change={toggle_applied}/>
+			</label>
+		</div>
+	</header>
+	{@html post.text}
+</div>
+
 <style>
 	.block {
 		padding: 26rem;
 		margin: 0 0 26rem;
 		background-color: rgba(255, 158, 11, 0.05);
-		border: 1rem solid $orange-mid;
-		font: 22rem/1.4 $font;
+		/* border: 1rem solid $orange-mid; */
+		/* font: 22rem/1.4 $font; */
 	}
 	header {
 		display: flex;
@@ -91,9 +92,9 @@
 		align-items: flex-start;
 		padding: 12rem;
 		background-color: rgba(255, 255, 255, 0.05);
-		border: 1rem solid $orange-mid;
+		/* border: 1rem solid $orange-mid; */
 	}
-	// .meta {}
+	/* .meta {} */
 	.titles {
 		display: flex;
 		align-items: center;
@@ -112,9 +113,9 @@
 		border: 1rem solid rgba(255, 158, 11, 0.2);
 		cursor: pointer;
 		user-select: none;
-		&.on {
-			background-color: $orange-mid;
-		}
+	}
+	label.on {
+		/* background-color: $orange-mid; */
 	}
 	input[type="checkbox"] {
 		margin: 2rem 0 0 6rem;
